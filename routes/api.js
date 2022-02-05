@@ -19,8 +19,12 @@ module.exports = function (app) {
       return res.json({ error: "Invalid coordinate" });
     }
 
-    const value = req.body.value;
-    if (value < 1 || value > 9) {
+    let value = req.body.value;
+    const validInput = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    if (typeof value != "number") {
+      value = parseInt(value);
+    }
+    if (!validInput.includes(value)) {
       return res.json({ error: "Invalid value" });
     }
 

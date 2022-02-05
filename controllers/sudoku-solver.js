@@ -41,8 +41,6 @@ class SudokuSolver {
       if (Math.floor(i / 9) == row - 1) {
         if (puzzleString[i] == ".") {
           colString += value;
-        } else {
-          return false;
         }
       } else {
         colString += puzzleString[i];
@@ -72,8 +70,6 @@ class SudokuSolver {
         if (r == row && c == column) {
           if (puzzleString[i] == ".") {
             regionString += value;
-          } else {
-            return false;
           }
         } else {
           regionString += puzzleString[i];

@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 
 suite("Functional Tests", function () {
   suite("POST check", function () {
-    test("/POST check a puzzle placement with all fields", function (done) {
+    test("/POST check a valid puzzle placement on an empty spot", function (done) {
       const input = {
         puzzle:
           "..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..",
@@ -20,6 +20,25 @@ suite("Functional Tests", function () {
         .post("/api/check")
         .send(input)
         .end((err, res) => {
+          assert.property(res.body, "valid");
+          assert.equal(res.body.valid, true);
+          done();
+        });
+    });
+    test("/POST check a valid puzzle placement on an occupied spot", function (done) {
+      const input = {
+        puzzle:
+          "..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..",
+        coordinate: "D5",
+        value: 2,
+      };
+
+      chai
+        .request(server)
+        .post("/api/check")
+        .send(input)
+        .end((err, res) => {
+          console.log(JSON.stringify(res.body));
           assert.property(res.body, "valid");
           assert.equal(res.body.valid, true);
           done();
@@ -197,7 +216,7 @@ suite("Functional Tests", function () {
       const input = {
         coordinate: "J4",
         puzzle:
-          "...9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..",
+          "..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..",
         value: 4,
       };
 
@@ -213,11 +232,11 @@ suite("Functional Tests", function () {
           done();
         });
     });
-    test("/POST check a puzzle with greater or less than 81 characters", function (done) {
+    test("/POST check input value that is not between 1 and 9", function (done) {
       const input = {
         coordinate: "H4",
         puzzle:
-          "...9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..",
+          "..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..",
         value: 10,
       };
 
