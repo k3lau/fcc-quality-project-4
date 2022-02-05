@@ -19,7 +19,6 @@ suite("Functional Tests", function () {
       .post("/api/check")
       .send(input)
       .end((err, res) => {
-        console.log(JSON.stringify(res.body));
         assert.property(res.body, "valid");
         assert.equal(res.body.valid, true);
         done();
@@ -230,6 +229,20 @@ suite("Functional Tests", function () {
         assert.deepEqual(res.body, {
           error: "Invalid value",
         });
+        done();
+      });
+  });
+  test("Solve a puzzle with valid puzzle string", (done) => {
+    let puzzle = [
+      "5..91372.3...8.5.9.9.25..8.68.47.23...95..46.7.4.....5.2.......4..8916..85.72...3",
+      "568913724342687519197254386685479231219538467734162895926345178473891652851726943",
+    ];
+    chai
+      .request(server)
+      .post("api/solve")
+      .send({ puzzle: puzzle })
+      .end((err, res) => {
+        console.log(res.body);
         done();
       });
   });

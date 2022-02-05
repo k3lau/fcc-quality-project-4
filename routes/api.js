@@ -58,5 +58,13 @@ module.exports = function (app) {
     return res.json(result);
   });
 
-  //app.route("/api/solve").post((req, res) => {});
+  app.route("/api/solve").post((req, res) => {
+    let returnArray = solver.solve(req.body.puzzle);
+    let returnObject = { puzzle: returnArray[0] };
+    return res.send(returnObject);
+  });
+
+  app.route("/api/slowsolve").post((req, res) => {
+    res.send({ puzzle: solver.solve(req.body.puzzle, true) });
+  });
 };
