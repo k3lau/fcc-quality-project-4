@@ -44,8 +44,8 @@ async function getSolved() {
     errorMsg.innerHTML = `<code>${JSON.stringify(parsed, null, 2)}</code>`;
     return;
   }
-
-  fillpuzzle(parsed.puzzle[parsed.puzzle.length - 1]);
+  console.log(JSON.stringify(parsed));
+  fillpuzzle(parsed.puzzle);
 }
 
 async function getSlowSolved() {

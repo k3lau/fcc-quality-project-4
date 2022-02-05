@@ -16,13 +16,12 @@ suite("UnitTests", () => {
       const correctOutput =
         "135762984946381257728459613694517832812936745357824196473298561581673429269145378";
       const result = solver.solve(inputString);
-      console.log(result);
       assert.equal(result[result.length - 1], correctOutput);
       done();
     });
   });
 
-  suite.skip("Check function", function () {
+  suite("Check function", function () {
     test("valid puzzle string of 81 chars", (done) => {
       const testString =
         "1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.37.";

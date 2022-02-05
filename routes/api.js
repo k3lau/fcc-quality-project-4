@@ -59,9 +59,18 @@ module.exports = function (app) {
   });
 
   app.route("/api/solve").post((req, res) => {
-    let returnArray = solver.solve(req.body.puzzle);
-    let returnObject = { puzzle: returnArray[0] };
-    return res.send(returnObject);
+    let validated = solver.validate(req.body.puzzle);
+    console.log(validated);
+    if (typeof validated != "string") {
+      return res.send(validated);
+    }
+    try {
+      let returnArray = solver.solve(req.body.puzzle);
+      let returnObject = { puzzle: returnArray[0] };
+      return res.send(returnObject);
+    } catch (err) {
+      return res.send(err);
+    }
   });
 
   app.route("/api/slowsolve").post((req, res) => {

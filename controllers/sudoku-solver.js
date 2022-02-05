@@ -398,8 +398,6 @@ function one_value_cell_constraint(board, slow) {
     }
   }
 
-  printBoard(board[board.length - 1]);
-
   return updated;
 }
 
