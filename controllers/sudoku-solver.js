@@ -95,31 +95,41 @@ class SudokuSolver {
   solve(puzzleString, slow = false) {
     let board = [];
     board.push(convertPuzzleStringToArray(puzzleString));
+
     //printBoard(board);
 
     let updated = true,
       solved = false;
     while (updated && !solved) {
       updated = one_value_cell_constraint(board, slow);
-      solved = is_solved(board);
+      solved = is_solved(board[board.length - 1]);
     }
     //if (!solved) {
     //  board = backtrack_based(board, slow);
     //}
 
-    if (slow) {
-      let i = 0;
-      let puzzleArray = [];
-      while (i < board.length) {
-        let puzzleString = convertPuzzleArrayToString(board[i]);
-        puzzleArray.push(puzzleString);
-        i++;
-      }
-      return puzzleArray;
+    solved = is_solved(board[board.length - 1]);
+    console.log("Solve");
+    console.log(puzzleString);
+    console.log(solved);
+    if (!solved) {
+      return { error: "Puzzle cannot be solved" };
     } else {
-      let result = [];
-      result.push(convertPuzzleArrayToString(board[board.length - 1]));
-      return result;
+      if (slow) {
+        let i = 0;
+        let puzzleArray = [];
+        while (i < board.length) {
+          let puzzle = convertPuzzleArrayToString(board[i]);
+          puzzleArray.push(puzzle);
+          i++;
+        }
+        return puzzleArray;
+      } else {
+        let result = [];
+        result.push(convertPuzzleArrayToString(board[board.length - 1]));
+        console.log(result);
+        return result;
+      }
     }
   }
 }

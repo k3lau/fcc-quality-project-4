@@ -6,9 +6,21 @@ let solver = new Solver();
 
 suite("UnitTests", () => {
   suite("Solve function", function () {
-    test("valid puzzle string pass the solver");
+    test("valid puzzle string pass the solver", (done) => {
+      const solvedPuzzle =
+        "135762984946381257728459613694517832812936745357824196473298561581673429269145378";
+      const result = solver.solve(solvedPuzzle);
+      assert.equal(result[result.length - 1], solvedPuzzle);
+      done();
+    });
 
-    test("invalid puzzle string fail the solver");
+    test("invalid puzzle string fail the solver", (done) => {
+      const solvedPuzzle =
+        "33.762984946381257728459613694517832812936745357824196473298561581673429269145378";
+      const result = solver.solve(solvedPuzzle);
+      assert.equal(result.error, "Puzzle cannot be solved");
+      done();
+    });
 
     test("solver returns the expected solution for an incomplete puzzle", function (done) {
       const inputString =
