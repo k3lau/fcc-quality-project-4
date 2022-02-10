@@ -38,7 +38,6 @@ suite("Functional Tests", function () {
         .post("/api/check")
         .send(input)
         .end((err, res) => {
-          console.log(JSON.stringify(res.body));
           assert.property(res.body, "valid");
           assert.equal(res.body.valid, true);
           done();

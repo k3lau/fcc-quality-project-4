@@ -64,8 +64,6 @@ module.exports = function (app) {
 
   app.route("/api/solve").post((req, res) => {
     let validated = solver.validate(req.body.puzzle);
-    console.log("API SOLVE", req.body.puzzle);
-    console.log(validated);
     if (typeof validated != "string") {
       return res.send(validated);
     }
